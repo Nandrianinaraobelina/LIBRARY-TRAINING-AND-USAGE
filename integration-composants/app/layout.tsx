@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang ="fr">
-     <body className="flex min-h-screen items-center justify-center bg-black">
+     <body className="min-h-dvh bg-black">
   {children}
 </body>
     </html>
