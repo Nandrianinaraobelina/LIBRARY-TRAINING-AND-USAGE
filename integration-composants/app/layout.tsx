@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-  <body className="flex min-h-screen items-center justify-center bg-black">
+    <html lang ="fr">
+     <body className="flex min-h-screen items-center justify-center bg-black">
   {children}
 </body>
+    </html>
+ 
   );
 }
