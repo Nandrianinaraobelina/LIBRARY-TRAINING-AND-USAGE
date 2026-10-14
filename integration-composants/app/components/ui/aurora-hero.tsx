@@ -49,7 +49,7 @@ export function AuroraHero({
     >
       <style>{`
         .aurora-hero-wrapper {
-          --stripe-color: #000;
+          --stripe-color: #080808;
           --bg-filter: blur(10px) opacity(50%) saturate(200%);
           background: var(--stripe-color);
           font-family: Inter, sans-serif;
@@ -75,7 +75,7 @@ export function AuroraHero({
             transparent 12%, 
             var(--stripe-color) 16%
           );
-          --rainbow: repeating-linear-gradient(
+  --rainbow: repeating-linear-gradient(
             100deg, 
             #60a5fa 10%, 
             #e879f9 15%, 
@@ -83,6 +83,7 @@ export function AuroraHero({
             #5eead4 25%, 
             #60a5fa 30%
           );
+
           background-image: var(--stripes), var(--rainbow);
           background-size: 300%, 200%;
           background-position: 50% 50%, 50% 50%;
