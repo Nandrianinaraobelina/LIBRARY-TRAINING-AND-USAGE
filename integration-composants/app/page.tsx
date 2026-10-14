@@ -1,9 +1,7 @@
+import { PopButton } from "@/components/ui/pop-button";
 
-import Image from "next/image";
-
-export default function Home() {
-  return (
-      <p></p>
-   
-  );
+export default function PopButtonDemo() {
+  return <PopButton className="w-full">
+    Découvrir
+  </PopButton>;
 }
