@@ -17,7 +17,27 @@ export default function PopButtonDemo() {
       <FluidMorphBg className="absolute inset-0" />
       <h2 className="relative z-10 text-white text-5xl font-serif">Fluid Life</h2>
     </div>
-    
+
     </main>
   );
 }
+
+/*
+<main className="relative flex min-h-dvh w-full flex-col items-center justify-center gap-6 overflow-hidden">
+  <FluidMorphBg className="absolute inset-0 z-0" />
+
+  <div className="relative z-10 flex flex-col items-center gap-6">
+    <PopButton>Learn More</PopButton>
+    <SocialFlipButton platform="twitter" href="https://twitter.com" />
+    <h2 className="text-5xl font-serif text-white">Fluid Life</h2>
+  </div>
+</main>
+
+2. Dans  app/layout.tsx , remplacez les classes du  <body>  par :
+
+<body className="min-h-dvh bg-black">
+  {children}
+</body>
+
+
+*/
