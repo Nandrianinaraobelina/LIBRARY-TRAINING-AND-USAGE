@@ -3,7 +3,7 @@ import { PopButton } from "@/components/ui/pop-button";
 import SocialFlipButton from "@/components/ui/social-flip-button";
 import { AuroraHero } from "@/components/ui/aurora-hero";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
-import { items } from "@/lib/image-reveal-items";
+import { items } from "@/data/image-reveal-items";
 import { ImageRevealList } from "@/components/ui/image-reveal-list";
 
 

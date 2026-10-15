@@ -1,12 +1,12 @@
 
-import { ImageRevealList, type ImageRevealListItem } from "@/components/ui/image-reveal-list"
+import { ImageRevealListItem } from "@/components/ui/image-reveal-list"
 
-const items: ImageRevealListItem[] = [
+export const items: ImageRevealListItem[] = [
   {
     id: "1",
     title: "The Great Gatsby",
     subtitle: "F. Scott Fitzgerald",
-    image: "/covers/gatsby.jpg",
+    image: "/covers/w=276,h=368 (1).png",
     number: "01",
     href: "/books/gatsby",
   },
@@ -14,8 +14,8 @@ const items: ImageRevealListItem[] = [
     id: "2",
     title: "To Kill a Mockingbird",
     subtitle: "Harper Lee",
-    image: "/covers/mockingbird.jpg",
+    image: "/covers/w=276,h=368 (2).png",
     number: "02",
-    href: "/books/mockingbird",
+    href: "/w=276,h=368 (2).png",
   },
 ]
