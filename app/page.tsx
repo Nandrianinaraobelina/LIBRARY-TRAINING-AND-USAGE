@@ -16,13 +16,8 @@ export default function PopButtonDemo() {
       {/* Contenu au-dessus du background */}
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center gap-6">
         <FaqAccordion />
-
         <PopButton>Learn More</PopButton>
-
-        <SocialFlipButton
-          platform="twitter"
-          href="https://twitter.com"
-        />
+        <SocialFlipButton platform="twitter" href="https://twitter.com"/>
       </div>
 
     </main>
