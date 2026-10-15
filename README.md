@@ -1,226 +1,204 @@
-# Integration des composants UI
+# Intégration des composants UI
 
-Projet Next.js qui rassemble des composants React personnalises avec Tailwind CSS :
+Projet Next.js qui regroupe plusieurs composants React/Tailwind en une landing page interactive et moderne.
 
-- **Pop Button** : bouton avec effet de pression en relief.
-- **Social Flip Button** : boutons sociaux qui pivotent au survol.
-- **Fluid Morph Background** : fond anime compose de formes fluides SVG.
-- **Aurora Hero** : fond anime a bandes colorees avec un titre central.
+## Aperçu
 
-La page d'accueil utilise actuellement `AuroraHero`. Les autres composants sont disponibles dans `app/components/ui/` et peuvent etre ajoutes a la page selon les exemples ci-dessous.
+Le projet met en avant des éléments d'interface animés et réutilisables :
 
-## Prerequis
+- `AuroraHero` : fond animé avec dégradé et bandes colorées
+- `PopButton` : bouton 3D avec effet de pression
+- `SocialFlipButton` : boutons sociaux qui se retournent au hover
+- `FaqAccordion` : accordéon accessible pour FAQ
+- `ImageRevealList` : liste avec révélation d'image au survol
 
-- Node.js et npm
+La page d'accueil actuelle combine `AuroraHero` en fond avec plusieurs composants superposés.
+
+## Stack technique
+
 - Next.js 16
 - React 19
 - Tailwind CSS 4
+- Framer Motion
+- react-icons
+- clsx
+- tailwind-merge
 
-Les dependances utilisees par les composants (`framer-motion`, `react-icons`, `clsx` et `tailwind-merge`) sont declarees dans `package.json`.
+## Prérequis
 
-## Lancer le projet
+- Node.js 18+
+- npm
 
-Depuis le dossier du projet :
+## Installation
+
+Depuis la racine du projet :
 
 ```bash
 npm install
+```
+
+## Démarrage
+
+```bash
 npm run dev
 ```
 
-Ouvrez [http://localhost:3000](http://localhost:3000).
+Puis ouvrir :
 
-Pour creer et verifier la version de production :
+```text
+http://localhost:3000
+```
+
+## Build de production
 
 ```bash
 npm run build
 npm run start
 ```
 
-## Organisation des fichiers
+## Structure du projet
 
 ```text
-app/
-  components/
-    ui/
-      aurora-hero.tsx
-      fluid-morph-bg.tsx
-      pop-button.tsx
-      social-flip-button.tsx
-  lib/
-    utils.ts
-  globals.css
-  layout.tsx
-  page.tsx
+integration-composants/
+├── app/
+│   ├── components/
+│   │   └── ui/
+│   │       ├── aurora-hero.tsx
+│   │       ├── faq-accordion.tsx
+│   │       ├── fluid-morph-bg.tsx
+│   │       ├── image-reveal-list.tsx
+│   │       ├── pop-button.tsx
+│   │       └── social-flip-button.tsx
+│   ├── data/
+│   │   └── image-reveal-items.ts
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── .gitignore
+├── eslint.config.mjs
+├── next-env.d.ts
+├── next.config.ts
+├── package.json
+├── README.md
+├── tsconfig.json
+└── package-lock.json
 ```
 
-L'alias `@/*` est configure dans `tsconfig.json` pour pointer vers `app/*`. Ainsi, les imports comme `@/components/ui/pop-button` et `@/lib/utils` correspondent aux fichiers sous `app/`.
+L'alias `@/*` pointe vers le dossier `app/` via `tsconfig.json`.
 
-## Fond plein ecran
+## Page d'accueil actuelle
 
-`app/globals.css` charge Tailwind CSS et retire les marges par defaut :
-
-```css
-@import "tailwindcss";
-
-html,
-body {
-  min-height: 100%;
-  margin: 0;
-  background-color: #000;
-}
-```
-
-Le layout racine `app/layout.tsx` doit garder les balises `<html>` et `<body>`, et rendre la page via `{children}` :
-
-```tsx
-<html lang="fr">
-  <body className="min-h-dvh bg-black">{children}</body>
-</html>
-```
-
-Pour qu'un fond anime couvre tout l'ecran, le composant doit lui-meme avoir une hauteur de viewport (`h-dvh`) et prendre toute la largeur (`w-full`). Evitez de le placer dans un conteneur avec une hauteur fixe ou des marges qui le limitent.
-
-## Aurora Hero
-
-Composant actuellement affiche sur la page d'accueil. Il prend un titre optionnel et accepte aussi les attributs HTML d'une section :
-
-```tsx
-import { AuroraHero } from "@/components/ui/aurora-hero";
-
-export default function Home() {
-  return <AuroraHero title="Nandrianina" />;
-}
-```
-
-La hauteur plein ecran est definie dans `app/components/ui/aurora-hero.tsx` par les classes `h-dvh` et `w-full`.
-
-### Changer les couleurs Aurora
-
-Dans le meme fichier, cherchez `--rainbow` dans les styles de `.aurora-hero-bg`. Modifiez les couleurs du `repeating-linear-gradient` pour choisir la palette voulue. Par exemple :
-
-```css
---rainbow: repeating-linear-gradient(
-  100deg,
-  #10110b 0%,
-  #294018 8%,
-  #a34b16 14%,
-  #4d1715 20%,
-  #0b0b0a 27%,
-  #9d4a12 34%,
-  #6b1c20 42%,
-  #11100d 50%
-);
-```
-
-La variable `--stripe-color` controle les bandes sombres. Gardez-la proche de `#080808` pour un fond presque noir. Le bloc `:is(.dark) .aurora-hero-wrapper` definit les couleurs en mode sombre ; adaptez-le aussi si vous utilisez la classe `dark` sur `<html>`.
-
-## Pop Button
-
-Bouton HTML accessible qui accepte les props natives d'un bouton (`onClick`, `type`, `disabled`, etc.) :
+La page principale est située dans `app/page.tsx` et suit ce principe :
 
 ```tsx
 import { PopButton } from "@/components/ui/pop-button";
-
-export function PopButtonDemo() {
-  return (
-    <PopButton type="button" onClick={() => alert("Clique !")}>
-      Decouvrir
-    </PopButton>
-  );
-}
-```
-
-Sans `children`, le texte affiche par defaut est `Learn More`. La prop `className` permet d'ajouter des classes Tailwind, par exemple `w-full`.
-
-## Social Flip Button
-
-Le composant affiche par defaut une rangee de lettres qui se retournent pour reveler les icones sociales au survol :
-
-```tsx
 import SocialFlipButton from "@/components/ui/social-flip-button";
+import { AuroraHero } from "@/components/ui/aurora-hero";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
+import { items } from "@/data/image-reveal-items";
+import { ImageRevealList } from "@/components/ui/image-reveal-list";
 
-export function SocialDemo() {
-  return <SocialFlipButton />;
-}
-```
-
-Les liens de la liste par defaut utilisent `href: "#"`. Pour pointer vers vos vrais profils, transmettez une liste `items` :
-
-```tsx
-import SocialFlipButton, {
-  type SocialItem,
-} from "@/components/ui/social-flip-button";
-import { FaGithub, FaTwitter } from "react-icons/fa";
-
-const links: SocialItem[] = [
-  {
-    letter: "G",
-    icon: <FaGithub />,
-    label: "GitHub",
-    href: "https://github.com/votre-nom",
-  },
-  {
-    letter: "X",
-    icon: <FaTwitter />,
-    label: "Twitter",
-    href: "https://twitter.com/votre-nom",
-  },
-];
-
-export function SocialDemo() {
-  return <SocialFlipButton items={links} />;
-}
-```
-
-Les classes `className`, `itemClassName`, `frontClassName` et `backClassName` permettent de personnaliser le conteneur, les boutons, les faces avant et les faces arriere.
-
-## Fluid Morph Background
-
-Fond SVG anime avec une palette, une couleur de fond et une duree configurables :
-
-```tsx
-import { FluidMorphBg } from "@/components/ui/fluid-morph-bg";
-
-export function FluidBackgroundDemo() {
+export default function PopButtonDemo() {
   return (
-    <main className="relative isolate flex min-h-dvh items-center justify-center overflow-hidden">
-      <FluidMorphBg className="absolute inset-0 -z-10" />
-      <h1 className="text-5xl font-serif text-white">Fluid Life</h1>
+    <main className="relative min-h-screen w-full overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <AuroraHero title="" />
+      </div>
+
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center gap-6">
+        <FaqAccordion />
+        <PopButton>Learn More</PopButton>
+        <SocialFlipButton platform="twitter" href="https://twitter.com" />
+        <ImageRevealList items={items} />
+      </div>
     </main>
   );
 }
 ```
 
-Props disponibles :
+## Composants
 
-- `className` : classes Tailwind du conteneur.
-- `duration` : duree de base de l'animation, en secondes (4 par defaut).
-- `colors` : tableau de couleurs hexadecimales pour les formes SVG.
-- `backgroundColor` : couleur de fond du composant.
+### `PopButton`
 
-## Exemple de composition
-
-Pour afficher le bouton et les liens au-dessus du fond anime, placez le fond en absolu et l'interface dans un conteneur de premier plan :
+Bouton accessible et personnalisable avec effet de profondeur.
 
 ```tsx
-<main className="relative isolate flex min-h-dvh w-full flex-col items-center justify-center gap-6 overflow-hidden">
-  <FluidMorphBg className="absolute inset-0 -z-10" />
-  <PopButton>Learn More</PopButton>
-  <SocialFlipButton />
-  <h1 className="text-5xl font-serif text-white">Fluid Life</h1>
-</main>
+import { PopButton } from "@/components/ui/pop-button";
+
+export default function Demo() {
+  return <PopButton type="button">Découvrir</PopButton>;
+}
 ```
 
+### `SocialFlipButton`
 
-Explication des classes Tailwind CSS: 
-Classe	Rôle
-relative	Crée un contexte de positionnement.
-absolute inset-0	Étend le background sur toute la zone du parent.
-z-0	Place le background sur le niveau inférieur.
-relative z-10	Place le contenu au-dessus du background.
-overflow-hidden	Évite que les effets animés débordent du conteneur.
-Attention : si AuroraHero possède déjà un élément fixed, un z-index élevé ou un arrière-plan opaque, il faudra peut-être adapter son composant interne pour que le contenu reste visible.
+Boutons sociaux qui affichent une lettre au recto et une icône au verso lors du survol.
 
+```tsx
+import SocialFlipButton from "@/components/ui/social-flip-button";
 
+export default function Demo() {
+  return <SocialFlipButton />;
+}
+```
 
-Utilisez `AuroraHero` ou `FluidMorphBg` comme fond principal selon le rendu souhaite ; les deux fonds peuvent aussi etre utilises separement sur des pages ou sections differentes.
+### `FaqAccordion`
+
+Accordéon simple avec gestion d'état interne et support de `ReactNode` dans les réponses.
+
+```tsx
+import { FaqAccordion } from "@/components/ui/faq-accordion";
+
+export default function Demo() {
+  return <FaqAccordion title="Questions fréquentes" />;
+}
+```
+
+### `ImageRevealList`
+
+Liste de cartes avec image qui apparaît au survol de chaque item.
+
+```tsx
+import { ImageRevealList } from "@/components/ui/image-reveal-list";
+
+const items = [
+  {
+    id: "1",
+    title: "The Great Gatsby",
+    subtitle: "F. Scott Fitzgerald",
+    image: "/covers/example.png",
+    number: "01",
+    href: "/books/gatsby",
+  },
+];
+
+export default function Demo() {
+  return <ImageRevealList items={items} />;
+}
+```
+
+## Personnalisation
+
+### Couleurs Aurora
+
+Dans `app/components/ui/aurora-hero.tsx`, les variables CSS comme `--rainbow` et `--stripe-color` permettent de modifier la palette et le rendu du fond.
+
+### Layout plein écran
+
+Pour un fond qui couvre la fenêtre, le composant doit avoir des classes de type :
+
+```tsx
+className="h-dvh w-full"
+```
+
+et être placé dans un conteneur avec `relative` / `overflow-hidden` si besoin.
+
+## Notes
+
+- Les composants sont pensés pour être réutilisés dans des pages ou sections distinctes.
+- Le projet est idéal pour prototyper des interfaces modernes en Next.js sans dépendre d'un package externe complet.
+- Les styles sont principalement gérés par Tailwind CSS, avec de petites animations Framer Motion pour les effets visuels.
+
+## Auteur
+
+Projet de démonstration UI / intégration de composants modernes pour Next.js.
