@@ -211,4 +211,16 @@ Pour afficher le bouton et les liens au-dessus du fond anime, placez le fond en 
 </main>
 ```
 
+
+Explication des classes Tailwind CSS: 
+Classe	Rôle
+relative	Crée un contexte de positionnement.
+absolute inset-0	Étend le background sur toute la zone du parent.
+z-0	Place le background sur le niveau inférieur.
+relative z-10	Place le contenu au-dessus du background.
+overflow-hidden	Évite que les effets animés débordent du conteneur.
+Attention : si AuroraHero possède déjà un élément fixed, un z-index élevé ou un arrière-plan opaque, il faudra peut-être adapter son composant interne pour que le contenu reste visible.
+
+
+
 Utilisez `AuroraHero` ou `FluidMorphBg` comme fond principal selon le rendu souhaite ; les deux fonds peuvent aussi etre utilises separement sur des pages ou sections differentes.
